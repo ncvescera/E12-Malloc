@@ -1,1 +1,3 @@
-typedef enum{FALSE,TRUE} bool;
+typedef enum {
+    FALSE, TRUE
+} bool;
