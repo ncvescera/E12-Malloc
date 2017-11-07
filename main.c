@@ -10,6 +10,7 @@ typedef struct s_node node;
 typedef node * nodePtr;
 
 void add(nodePtr *lista, char val);
+void rm(nodePtr *lista, char val);
 void fill(nodePtr *lista);
 void printList(nodePtr lista);
 int cerca(nodePtr lista, char elem);
@@ -18,6 +19,9 @@ int main(int argc, char** argv) {
     nodePtr list = malloc(sizeof(node));
     
     fill(&list);
+    printList(list);
+    
+    rm(&list,'w');
     printList(list);
     
     printf("%d\n",cerca(list,'y'));
@@ -34,6 +38,26 @@ void add(nodePtr *lista, char val){
         *lista = newLista;
     }
     
+}
+
+void rm(nodePtr *lista, char val){
+    if((*lista)->c == val){
+        nodePtr temp = *lista;
+        *lista = (*lista)->next;
+        free(temp);
+    }
+    else{
+        nodePtr temp = *lista;
+        
+        while(temp->next != NULL && temp->next->c != val)
+            temp = temp->next;
+        
+        if(temp->next != NULL){
+            nodePtr del = temp->next;
+            temp->next = temp->next->next;
+            free(del);
+        }
+    }
 }
 
 void fill(nodePtr *lista){
